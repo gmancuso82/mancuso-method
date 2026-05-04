@@ -35,7 +35,7 @@ streamlit run dashboard.py
 
 ## Background
 
-Built as a portfolio project while studying Data Science at UVA. After two hip surgeries (Dec 2025 and March 2026), I needed a way to train intelligently for my return to Hyrox competition without overspending on coaching. So I built my own.
+I built this as a portfolio project while getting my MSDS at University of Virginia. Former professional athlete, now fitness enthusiast, tennis obssessed and Hyrox pro athlete I am rehabbing after two hip surgeries (Dec 2025 and March 2026). I am signed up for Hyrox NYC in June and I needed a way to train intelligently for my return to Hyrox competition without overspending on coaching. So I built my own.
 
 ## Data sources
 
