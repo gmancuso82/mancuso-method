@@ -9,16 +9,16 @@ load_dotenv()
 
 client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-def generate_briefing(df_full):
+def generate_briefing(df_full, nutrition=None):
     today = date.today()
     yesterday = today - timedelta(days=1)
 
-    yesterday_rows = df_full[df_full['date'].dt.date == yesterday]
-    yesterday_data = yesterday_rows.iloc[0] if not yesterday_rows.empty else df_full.iloc[-1]
+    yesterday_rows = df_full[df_full['date'].dt.date == yesterday].dropna(subset=['sleep_score'])
+    yesterday_data = yesterday_rows.iloc[0] if not yesterday_rows.empty else df_full.dropna(subset=['sleep_score']).iloc[-1]
     last_7 = df_full[df_full['date'].dt.date >= (today - timedelta(days=7))]
 
     briefing_prompt = f"""
-You are Gina's personal AI recovery and performance coach. Generate her daily morning briefing.
+You are Gina Mancuso's personal AI recovery and performance coach. Generate her daily morning briefing.
 
 ATHLETE PROFILE:
 - 43-year-old female, competitive Hyrox athlete (normally Pro level)
@@ -39,8 +39,14 @@ LAST NIGHT'S RECOVERY:
 LAST 7 DAYS TRAINING:
 {last_7[['date','activityName','duration_mins','calories','averageHR','oura_readiness_score']].to_string()}
 
+YESTERDAY'S NUTRITION:
+- Calories: {nutrition['calories'] if nutrition else 'Not logged'} / {nutrition['calorie_goal'] if nutrition else 'N/A'} goal ({nutrition['calorie_pct'] if nutrition else 'N/A'}% of goal)
+- Protein: {nutrition['protein'] if nutrition else 'Not logged'}g / {nutrition['protein_goal'] if nutrition else 'N/A'}g goal
+- Carbs: {nutrition['carbs'] if nutrition else 'Not logged'}g
+- Fat: {nutrition['fat'] if nutrition else 'Not logged'}g
+
 Generate a morning briefing with:
-1. Recovery Status (1 sentence, direct)
+1. Recovery Status (1 - 2 sentences, direct)
 2. What the data says (2-3 key insights)
 3. Today's Training Recommendation (specific, with duration and intensity)
 4. One thing to watch today
@@ -57,9 +63,9 @@ Be concise and direct. She is an experienced athlete - no fluff.
 
     return message.content[0].text
 
-def chat_with_coach(df_full):
+def chat_with_coach(df_full, nutrition=None):
     today = date.today()
-    briefing_text = generate_briefing(df_full)
+    briefing_text = generate_briefing(df_full, nutrition)
 
     print(f"\n🌅 MORNING BRIEFING — {today.strftime('%A, %B %d')}")
     print("=" * 50)

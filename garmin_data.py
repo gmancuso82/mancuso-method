@@ -56,3 +56,26 @@ def get_sleep(client, start_date="2026-03-13"):
         except Exception as e:
             pass
     return pd.DataFrame(records)
+
+def get_nutrition(client, target_date=None):
+    from datetime import date, timedelta
+    if target_date is None:
+        target_date = (date.today() - timedelta(days=1)).isoformat()
+    
+    try:
+        data = client.get_nutrition_daily_food_log(target_date)
+        daily = data.get('dailyNutritionContent', {})
+        goals = data.get('dailyNutritionGoals', {})
+        
+        return {
+            'date': target_date,
+            'calories': daily.get('calories', 0),
+            'protein': daily.get('protein', 0),
+            'carbs': daily.get('carbs', 0),
+            'fat': daily.get('fat', 0),
+            'calorie_goal': goals.get('calories', 0),
+            'protein_goal': goals.get('protein', 0),
+            'calorie_pct': daily.get('caloriesPercentage', 0)
+        }
+    except Exception as e:
+        return None
