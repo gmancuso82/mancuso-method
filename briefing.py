@@ -5,31 +5,67 @@ from datetime import date, timedelta
 from dotenv import load_dotenv
 from IPython.display import Markdown, display
 
+
+import json
+from pathlib import Path
+
+def save_conversation(conversation_history, nutrition=None):
+    today = date.today().isoformat()
+    Path("conversations").mkdir(exist_ok=True)
+    
+    save_data = {
+        "date": today,
+        "conversation": conversation_history,
+        "nutrition": nutrition
+    }
+    
+    filename = f"conversations/{today}.json"
+    with open(filename, 'w') as f:
+        json.dump(save_data, f, indent=2, default=str)
+    
+    print(f"\nConversation saved to {filename}")
+
 load_dotenv()
 
 client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-def generate_briefing(df_full, nutrition=None):
+def generate_briefing(df_full, nutrition=None, df_today_activities=None):
     today = date.today()
     yesterday = today - timedelta(days=1)
 
-    yesterday_rows = df_full[df_full['date'].dt.date == yesterday].dropna(subset=['sleep_score'])
-    yesterday_data = yesterday_rows.iloc[0] if not yesterday_rows.empty else df_full.dropna(subset=['sleep_score']).iloc[-1]
+    # Get today's Oura readiness specifically
+    df_oura_today = df_full[df_full['date'].dt.date == today]
+    df_oura_yesterday = df_full[df_full['date'].dt.date == yesterday]
+
+    # Sleep and training context comes from yesterday
+    yesterday_data = df_oura_yesterday.dropna(subset=['sleep_score'])
+    yesterday_data = yesterday_data.iloc[0] if not yesterday_data.empty else df_full.dropna(subset=['sleep_score']).iloc[-1]
+
+    #  Readiness comes from today
+    todays_readiness = df_oura_today['oura_readiness_score'].iloc[0] if not df_oura_today.empty and df_oura_today['oura_readiness_score'].notna().any() else yesterday_data.get('oura_readiness_score')
+
+    # Last 7 days
     last_7 = df_full[df_full['date'].dt.date >= (today - timedelta(days=7))]
 
     briefing_prompt = f"""
 You are Gina Mancuso's personal AI recovery and performance coach. Generate her daily morning briefing.
 
 ATHLETE PROFILE:
-- 43-year-old female, competitive Hyrox athlete (normally Pro level)
-- Two hip surgeries: Dec 9 2025 and March 13 2026
-- Target event: Hyrox Open, June 7 2026 ({(date(2026,6,7) - today).days} days away)
+- Right hip surgery: December 9, 2025 (~5 months ago)
+- Left hip surgery: March 13, 2026 (~7 weeks ago, most recent and sensitive surgical site)
+- Currently in PT 2x per week focused on hip strength and single-leg stability
+- High school teacher (school ends May 18 — training volume increases after)
+- Long term goals: return to tennis July 2026, Hyrox Pro races September 2026
+- Current target event: Hyrox Open June 7, 2026 ({(date(2026,6,7) - today).days} days away)
+
+PERSONAL PROFILE:
+- 43-year-old female, competitive Hyrox athlete (normally Pro level) and tennis player
+- The right quad and knee are weaker due to acl injury history
 - Currently training: Indoor Cycling, Elliptical, Strength, Cardio (no running yet)
-- Single mom, UVA grad student in data science
-- Had flu April 10-11 (explains metrics crash those days)
+- Single mom, high school teacher, UVA grad student in data science
 
 LAST NIGHT'S RECOVERY:
-- Oura Readiness Score: {yesterday_data.get('oura_readiness_score')}
+- Oura Readiness Score: {todays_readiness} (today's score)
 - Sleep Score (Garmin): {yesterday_data.get('sleep_score')}
 - Overnight HRV: {yesterday_data.get('overnight_hrv')} ms
 - HRV Status: {yesterday_data.get('hrv_status')}
@@ -45,12 +81,16 @@ YESTERDAY'S NUTRITION:
 - Carbs: {nutrition['carbs'] if nutrition else 'Not logged'}g
 - Fat: {nutrition['fat'] if nutrition else 'Not logged'}g
 
+TODAY SO FAR:
+- Activities logged: {', '.join(df_today_activities['activityName'].tolist()) if len(df_today_activities) else 'None yet'}
+
 Generate a morning briefing with:
 1. Recovery Status (1 - 2 sentences, direct)
 2. What the data says (2-3 key insights)
 3. Today's Training Recommendation (specific, with duration and intensity)
-4. One thing to watch today
-5. Coach's note (honest and motivational)
+4. Any nutrition advice for today based on yesterday's intake and today's training
+5. One thing to watch today
+6. Coach's note (honest and motivational)
 
 Be concise and direct. She is an experienced athlete - no fluff.
 """
@@ -63,9 +103,9 @@ Be concise and direct. She is an experienced athlete - no fluff.
 
     return message.content[0].text
 
-def chat_with_coach(df_full, nutrition=None):
+def chat_with_coach(df_full, nutrition=None, df_today_activities=None):
     today = date.today()
-    briefing_text = generate_briefing(df_full, nutrition)
+    briefing_text = generate_briefing(df_full, nutrition, df_today_activities)
 
     print(f"\n🌅 MORNING BRIEFING — {today.strftime('%A, %B %d')}")
     print("=" * 50)
@@ -80,6 +120,7 @@ def chat_with_coach(df_full, nutrition=None):
     while True:
         user_input = input("\nChat with your coach (press Enter to exit): ").strip()
         if not user_input:
+            save_conversation(conversation_history, nutrition)
             print("Have a great training session!")
             break
 

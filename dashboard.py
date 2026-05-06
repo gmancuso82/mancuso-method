@@ -15,11 +15,21 @@ st.set_page_config(page_title="Gina's AI Coach", page_icon="🏋️", layout="wi
 
 st.markdown("""
 <style>
-    .main { background-color: #0e1117; }
-    .metric-card { background: #1c1f26; border-radius: 12px; padding: 1rem; border: 1px solid #2d3139; }
-    .stChatMessage { background: #1c1f26; }
+    .stChatMessage {
+        background-color: #f8f9fa !important;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 5px 0;
+    }
+    .stChatMessage p {
+        color: #1a1a1a !important;
+    }
+    [data-testid="stChatMessageContent"] {
+        color: #1a1a1a !important;
+        background-color: #f8f9fa !important;
+    }
 </style>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True) 
 
 # ── Data loading ──────────────────────────────────────────
 @st.cache_data(ttl=3600)
