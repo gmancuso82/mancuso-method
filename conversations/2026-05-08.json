@@ -1,0 +1,23 @@
+{
+  "date": "2026-05-08",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Here is my data and morning briefing:\n# Gina's Morning Briefing \u2014 Friday, May 8, 2026\n\n---\n\n## 1. Recovery Status\nReadiness at 79 is acceptable but not optimal \u2014 your HRV at 30ms is on the lower end and sleep quality was subpar (69). You're functional, not fully charged.\n\n---\n\n## 2. What the Data Says\n- **Fatigue is accumulating.** Six straight days of training with only one rest day (5/7), and today you're already active. Body Battery only rebuilt 30 points overnight \u2014 you're running a deficit.\n- **HRV trend warrants attention.** 30ms is low for a competitive athlete. Combined with the slight temp deviation (+0.26\u00b0C), your system is working harder than the surface metrics suggest.\n- **Nutrition gap is a factor.** 248 calories and 14g protein short yesterday \u2014 on a day you burned ~590 calories training. That gap slows tissue repair, and your left hip is 7 weeks post-op. That's not the time to under-fuel recovery.\n\n---\n\n## 3. Today's Training Recommendation\nYou've already logged rowing and elliptical \u2014 **treat that as your session for today.**\n\n- **Total duration target:** Cap at 55\u201365 minutes combined \u2705 (you're likely already there)\n- **Intensity:** Keep average HR \u2264 135 bpm \u2014 aerobic maintenance, not a push day\n- **Strength:** Skip today. Your PT days are doing the hip-specific work that matters most right now; adding a third strength stimulus on a low HRV day with a 7-week-old surgical site is unnecessary risk\n- **30 days to Hyrox Open:** You need consistency and tissue integrity, not extra load this week\n\n---\n\n## 4. Nutrition Priorities Today\n- **Hit 1,800 calories \u2014 no negotiating today.** You're training again on a recovery deficit; under-eating two days in a row will blunt adaptation and slow left hip healing.\n- **Prioritize protein early.** Get 40\u201350g before noon. Aim for 145\u2013150g total today given back-to-back training days.\n- **Add a carb bump post-workout** \u2014 you're relying heavily on aerobic work right now; 40\u201350g fast carbs post-session will help restore glycogen and support HRV recovery overnight.\n- Watch the fat intake \u2014 21g yesterday is very low. Add healthy fats (avocado, olive oil, nuts) to support joint tissue and hormone function. As a 43-year-old post-surgical athlete, this matters more than you might be tracking.\n\n---\n\n## 5. One Thing to Watch Today\n**Left hip response to the rowing.** Rowing applies more hip flexor and anterior hip load than elliptical. If you feel any pinching, clicking, or fatigue asymmetry in the left hip during or after today's session, flag it for your PT before your next appointment \u2014 don't wait.\n\n---\n\n## 6. Coach's Note\nYou're 30 days out, post two hip surgeries, teaching full-time, and still showing up every day \u2014 the discipline is real. But the job right now is to arrive at June 7th healthy and buildable, not to squeeze every drop out of May. Protect the left hip, fuel the work, and trust that consistency beats heroics.\n\nLet's go, Gina. \ud83d\udcaa"
+    },
+    {
+      "role": "assistant",
+      "content": "I've reviewed your data and generated your briefing. What questions do you have?"
+    }
+  ],
+  "nutrition": {
+    "date": "2026-05-07",
+    "calories": 1552,
+    "protein": 130.0,
+    "carbs": 147.0,
+    "fat": 21.0,
+    "calorie_goal": 1800,
+    "protein_goal": 144.0,
+    "calorie_pct": 87.0
+  }
+}

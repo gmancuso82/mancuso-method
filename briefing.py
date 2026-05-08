@@ -9,7 +9,27 @@ from IPython.display import Markdown, display
 import json
 from pathlib import Path
 
-def save_conversation(conversation_history, nutrition=None):
+def load_previous_conversation():
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+    json_file = Path(f"conversations/{yesterday}.json")
+    
+    try:
+        if json_file.exists():
+            with open(json_file) as f:
+                data = json.load(f)
+                conversation = data.get('conversation', [])
+                # Extract just the user/coach messages, skip the initial data prompt
+                messages = [m for m in conversation if m['role'] in ['user', 'assistant']][2:]
+                summary = []
+                for m in messages[:10]:  # last 10 exchanges
+                    role = "You" if m['role'] == 'user' else "Coach"
+                    summary.append(f"{role}: {m['content'][:200]}")
+                return '\n'.join(summary)
+    except Exception as e:
+        return None
+    return None
+
+def save_conversation(conversation_history, nutrition=None, df_today_activities=None):
     today = date.today().isoformat()
     Path("conversations").mkdir(exist_ok=True)
     
@@ -30,12 +50,13 @@ load_dotenv()
 client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_briefing(df_full, nutrition=None, df_today_activities=None):
+    prev_conversation = load_previous_conversation()
     today = date.today()
     yesterday = today - timedelta(days=1)
 
     # Get today's Oura readiness specifically
-    df_oura_today = df_full[df_full['date'].dt.date == today]
-    df_oura_yesterday = df_full[df_full['date'].dt.date == yesterday]
+    df_oura_today = df_full[df_full['date'] == today.isoformat()]
+    df_oura_yesterday = df_full[df_full['date'] == yesterday.isoformat()]
 
     # Sleep and training context comes from yesterday
     yesterday_data = df_oura_yesterday.dropna(subset=['sleep_score'])
@@ -44,8 +65,9 @@ def generate_briefing(df_full, nutrition=None, df_today_activities=None):
     #  Readiness comes from today
     todays_readiness = df_oura_today['oura_readiness_score'].iloc[0] if not df_oura_today.empty and df_oura_today['oura_readiness_score'].notna().any() else yesterday_data.get('oura_readiness_score')
 
+
     # Last 7 days
-    last_7 = df_full[df_full['date'].dt.date >= (today - timedelta(days=7))]
+    last_7 = df_full[df_full['date'] >= (today - timedelta(days=7)).isoformat()]
 
     briefing_prompt = f"""
 You are Gina Mancuso's personal AI recovery and performance coach. Generate her daily morning briefing.
@@ -72,6 +94,9 @@ LAST NIGHT'S RECOVERY:
 - Body Battery Change: {yesterday_data.get('body_battery_change')}
 - Temperature Deviation: {yesterday_data.get('temperature_deviation')}C
 
+YESTERDAY'S COACHING CONVERSATION:
+{prev_conversation if prev_conversation else 'No previous conversation logged'}
+
 LAST 7 DAYS TRAINING:
 {last_7[['date','activityName','duration_mins','calories','averageHR','oura_readiness_score']].to_string()}
 
@@ -90,7 +115,7 @@ Generate a morning briefing with:
 3. Today's Training Recommendation (specific, with duration and intensity)
 4. Any nutrition advice for today based on yesterday's intake and today's training
 5. One thing to watch today
-6. Coach's note (honest and motivational)
+6. Coach's note (1 -2 sentences, honest and motivational)
 
 Be concise and direct. She is an experienced athlete - no fluff.
 """
@@ -103,7 +128,7 @@ Be concise and direct. She is an experienced athlete - no fluff.
 
     return message.content[0].text
 
-def chat_with_coach(df_full, nutrition=None, df_today_activities=None):
+def chat_with_coach(df_full, nutrition, df_today_activities):
     today = date.today()
     briefing_text = generate_briefing(df_full, nutrition, df_today_activities)
 

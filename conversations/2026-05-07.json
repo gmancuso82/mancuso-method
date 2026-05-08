@@ -1,0 +1,31 @@
+{
+  "date": "2026-05-07",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Here is my data and morning briefing:\n# Good Morning, Gina \u2014 May 7, 2026\n\n---\n\n## \ud83d\udd0b Recovery Status\nReadiness at 82 with an 88 sleep score and a 66-point Body Battery gain \u2014 you absorbed last night well. HRV at 49ms is balanced and the slight negative temp deviation is a non-issue; you're recovered and ready to work.\n\n---\n\n## \ud83d\udcca What the Data Says\n\n- **Training load has been minimal this week.** Only one logged session (Wednesday's 52-min cycling) across 7 days. With June 7th 31 days out, this is a window you can't keep leaving on the table.\n- **Readiness has been trending down mid-week (75\u201376 range) then rebounding** \u2014 likely stress and fatigue from teaching rather than training load. Today's 82 is a green light.\n- **Yesterday's nutrition was under-fueled.** 371 calories short of goal on a day you need tissue repair and adaptation from PT. That's the bigger recovery variable right now, not sleep.\n\n---\n\n## \ud83c\udfcb\ufe0f Today's Training Recommendation\n\n**Strength + Elliptical Combo | ~70\u201375 minutes total**\n\n**Strength Block \u2014 45 min**\nFocus: Bilateral and single-leg hip/glute strength, right quad reinforcement\n- Hip thrust (bilateral) \u2014 3\u00d712, moderate load, full glute engagement\n- Split squat (left leg elevated, controlled) \u2014 3\u00d710 each, bodyweight or light load, check with PT clearance\n- Terminal knee extensions \u2014 3\u00d715 each (right quad priority)\n- Side-lying clamshells / banded lateral walk \u2014 2\u00d715\n- Copenhagen plank hold \u2014 2\u00d720\u201330 sec each side, modified as needed for left hip\n\n**Elliptical Cardio \u2014 25 min**\n- 10 min warm-up at easy effort (RPE 4\u20135)\n- 12 min moderate steady-state (RPE 6\u20137), focus on even push through both legs\n- 3 min cool-down\n\n> **Intensity cap: RPE 7 max. Left hip is 7 weeks post-op \u2014 no grinding through fatigue or asymmetry today.**\n\n---\n\n## \ud83e\udd57 Nutrition Focus for Today\n\nYesterday's 371-calorie deficit on a recovery/PT week is working against you \u2014 muscle repair and surgical site healing are both calorie-dependent processes right now.\n\n- **Hit 1,800 calories today \u2014 non-negotiable on a training day.**\n- **Protein goal: 144g.** You were close yesterday (133g) \u2014 close the gap with a protein-forward breakfast and a solid post-workout meal within 45 minutes of finishing.\n- **Carbs are your friend today** \u2014 with training planned, aim for 180\u2013200g. Don't under-eat carbs to \"eat clean.\" You need fuel for output and recovery.\n- Quick win: Add a Greek yogurt + fruit post-workout, and don't skip a real dinner tonight.\n\n---\n\n## \ud83d\udc41\ufe0f One Thing to Watch\n\n**Left hip response during the strength block.** At 7 weeks post-op, fatigue sets in faster than it feels like it should. If you notice compensatory movement or sharp (not dull) discomfort during split squats or Copenhagen work, pull back and substitute a bilateral variation. Protecting that hip *right now* is what gets you to June 7th healthy.\n\n---\n\n## \ud83d\udcac Coach's Note\nYou are 31 days from a Hyrox Open \u2014 competing at a level most people your age with *one* hip surgery wouldn't consider. The data says you're ready to put in real work today, so go do it. Fuel the body that has to carry you across that finish line."
+    },
+    {
+      "role": "assistant",
+      "content": "I've reviewed your data and generated your briefing. What questions do you have?"
+    },
+    {
+      "role": "user",
+      "content": "/opt/miniconda3/envs/health-llm/bin/python morning_briefing.py"
+    },
+    {
+      "role": "assistant",
+      "content": "Looks like you accidentally pasted a terminal command into the chat instead of your message.\n\nWhat did you actually want to ask or tell me?"
+    }
+  ],
+  "nutrition": {
+    "date": "2026-05-06",
+    "calories": 1429,
+    "protein": 133.0,
+    "carbs": 168.0,
+    "fat": 26.0,
+    "calorie_goal": 1800,
+    "protein_goal": 144.0,
+    "calorie_pct": 80.0
+  }
+}

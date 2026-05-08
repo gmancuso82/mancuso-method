@@ -7,15 +7,36 @@ import pandas as pd
 load_dotenv()
 
 def connect_garmin():
+    import pickle
+    from pathlib import Path
+    
     email = os.getenv("GARMIN_EMAIL")
     password = os.getenv("GARMIN_PASSWORD")
+    token_path = Path("garmin_tokens.pkl")
     
     def get_mfa():
         return input("Enter Garmin MFA code: ")
     
     client = Garmin(email, password, prompt_mfa=get_mfa)
-    client.login()
-    print("Connected to Garmin!")
+    
+    try:
+        if token_path.exists():
+            with open(token_path, 'rb') as f:
+                tokens = pickle.load(f)
+            client.login(tokens)
+            print("Connected to Garmin (cached)!")
+        else:
+            raise Exception("No token")
+    except:
+        client.login()
+        # Save the session
+        try:
+            with open(token_path, 'wb') as f:
+                pickle.dump(client.session_data, f)
+            print("Connected to Garmin!")
+        except:
+            print("Connected to Garmin!")
+    
     return client
 
 def get_activities(client, start_date="2026-03-13"):
