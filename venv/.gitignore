@@ -1,4 +1,7 @@
 .env
 venv/
-
+garmin_tokens.pkl
+conversations/
+__pycache__/
+*.pkl
 
