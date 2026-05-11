@@ -1,0 +1,39 @@
+{
+  "date": "2026-05-11",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Here is my data and morning briefing:\n# Good Morning, Gina \u2014 Monday, May 11, 2026\n\n---\n\n## 1. Recovery Status\nReadiness at 82 with balanced HRV and a strong body battery recharge of 53 \u2014 you're in a solid window today. After yesterday's cycling session, you're recovered and ready to work.\n\n---\n\n## 2. What the Data Says\n- **HRV at 41ms is stable and balanced** \u2014 no red flags, system is handling training load well heading into a big week.\n- **You're 27 days out from Hyrox Open** \u2014 this week should be one of your last high-output strength weeks before a taper begins around May 25. Use this window intentionally.\n- **Yesterday's calorie deficit was significant** (596 under goal) \u2014 even with near-complete protein, low total fuel on a training day creates a recovery debt that can quietly blunt adaptation. Worth addressing today.\n\n---\n\n## 3. Today's Training Recommendation\n**Strength Session \u2014 RPE 7 | 55\u201365 min**\n\nYou already have cycling logged \u2014 if that was a short morning spin, treat today as a **strength-primary day**. If cycling was your main effort, adjust strength to moderate volume.\n\n**Session focus:**\n- **Hip hinge pattern** (RDL or trap bar deadlift) \u2014 bilateral first, protect left hip ROM limits\n- **Single-leg work** \u2014 right side gets extra attention (quad/knee weakness from ACL history); Bulgarian split squat or step-up at controlled tempo\n- **Lateral hip stability** \u2014 banded clamshells, side-lying abduction, or lateral step-downs (PT-cleared movements only for left hip)\n- **Upper body pull** \u2014 seated row or lat pull-down to balance the session without loading hips\n- **Core** \u2014 dead bugs, pallof press; no spinal flexion under load\n\n> Keep left hip as the governor. If something feels like compensation, stop and modify \u2014 27 days out is not the time to push through warning signs.\n\n---\n\n## 4. Nutrition \u2014 Today's Priority\nYesterday's 1,204 calories on a training day is a problem, even with solid protein. Today you need to **close the gap** \u2014 not as a \"make-up\" mindset, but because you have a strength session and 27-day event prep in play.\n\n- **Hit 1,800+ calories today** \u2014 non-negotiable on a strength day\n- **Pre-session:** 30\u201340g carbs + small protein hit (banana + Greek yogurt, or rice cake + cottage cheese)\n- **Post-session within 45 min:** 40g protein + 50\u201360g carbs \u2014 this is the window that drives adaptation\n- **Fat was very low (21g) yesterday** \u2014 add avocado, nuts, or olive oil today; hormonal support matters at 43 and through surgical recovery\n- Protein target (144g) is appropriate \u2014 hit it again today\n\n---\n\n## 5. One Thing to Watch\n**Left hip fatigue mid-session.** Seven weeks post-op, the hip will often feel fine in the first half of a strength session and then subtly shift into compensation patterns as stabilizers fatigue. Watch for any change in your left hip position during single-leg work \u2014 that's your signal to reduce load or stop, not push through.\n\n---\n\n## 6. Coach's Note\nYou're building something real here \u2014 two hip surgeries, full-time teaching, grad school, and you're 27 days from a Hyrox race. The data says your body is responding. Now feed it properly and let the work stick. \ud83d\udcaa\n\n---\n*Briefing generated: May 11, 2026*"
+    },
+    {
+      "role": "assistant",
+      "content": "I've reviewed your data and generated your briefing. What questions do you have?"
+    },
+    {
+      "role": "user",
+      "content": "I was going to focus on back for strength this afternoon, I have PT tomorrow morning. Did 55 min spin this am"
+    },
+    {
+      "role": "assistant",
+      "content": "Good setup for the day. Back focus is smart \u2014 gets quality strength work in without loading the hip heavily, and PT tomorrow morning means any hip-specific work gets handled by the right person.\n\n**One adjustment to flag:** After a 55-min spin this morning, your total output today is meaningful. Keep the back session at RPE 7, not 8. You don't need to prove anything today \u2014 you need to adapt from it.\n\n**Back Session Structure \u2014 ~50 min, RPE 7:**\n\n**Pull Pattern (primary)**\n- Lat pull-down: 3x10 \u2014 controlled eccentric, full stretch at top\n- Seated cable row: 3x10 \u2014 drive elbows back, not just pulling with hands\n\n**Horizontal Pull**\n- Single-arm dumbbell row: 3x10 each side \u2014 brace well, no hip rotation on left side\n\n**Posterior Chain Support**\n- Face pulls: 3x15 \u2014 rotator cuff and rear delt health, important for rowing station\n- Reverse fly: 3x12\n\n**Core (finish the session)**\n- Dead bugs: 3x10 each side\n- Pallof press: 3x10 each side\n\n**Key watch:** Single-arm rows \u2014 don't let your left hip rotate or hike to generate momentum. That's where back sessions quietly become hip sessions.\n\n**Pre-session fuel before this afternoon** \u2014 given yesterday's deficit, eat something now. Banana + Greek yogurt minimum.\n\nWhat time is your session?"
+    },
+    {
+      "role": "user",
+      "content": "I am heading out in 20, I was going to have some turkey and tortilla chips on the way or an apple and turkey"
+    },
+    {
+      "role": "assistant",
+      "content": "Turkey and tortilla chips \u2014 go with that one.\n\nYou get protein from the turkey plus quick carbs from the chips. That combination actually hits the pre-session mark better than the apple, which is mostly sugar with no staying power for a 50-min strength session.\n\nEat it in the car, you'll be fueled and ready. Go get it."
+    }
+  ],
+  "nutrition": {
+    "date": "2026-05-10",
+    "calories": 1204,
+    "protein": 136.0,
+    "carbs": 117.0,
+    "fat": 21.0,
+    "calorie_goal": 1800,
+    "protein_goal": 144.0,
+    "calorie_pct": 67.0
+  }
+}

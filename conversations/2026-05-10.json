@@ -1,0 +1,39 @@
+{
+  "date": "2026-05-10",
+  "conversation": [
+    {
+      "role": "user",
+      "content": "Here is my data and morning briefing:\n# Good Morning, Gina \u2014 Monday, May 11\n\n---\n\n## \ud83d\udd0b Recovery Status\nReadiness at 77 with a balanced HRV and minimal temp deviation \u2014 you're recovered and trainable, not exceptional but solid. Body Battery rebuilt well overnight (36 points), so you have fuel in the tank to work with today.\n\n---\n\n## \ud83d\udcca What the Data Says\n\n- **HRV at 32ms is your floor to monitor.** It's stable (Balanced status), but it's on the lower end for a Pro-level athlete. Two consecutive lower-readiness days (73\u219275) earlier this week before bouncing back suggests your system is responsive \u2014 keep honoring recovery days.\n- **You're building consistent volume.** Six training sessions in 7 days with only 2 rest days \u2014 that's a meaningful load for someone 7 weeks post-op on the left hip. The pattern is working, but fatigue can accumulate quietly at this stage.\n- **Yesterday was a rest day after a strong cycling session.** Timing is good \u2014 today you should be able to push with intent.\n\n---\n\n## \ud83c\udfcb\ufe0f Today's Training Recommendation\n\n**Strength + Elliptical | ~65\u201370 minutes | Moderate-High**\n\n*Structure:*\n- **Warm-up:** 8\u201310 min easy elliptical, low resistance, focus on bilateral hip engagement\n- **Strength Block (40 min):** PT-aligned lower body work \u2014 prioritize **right quad activation** (leg press, terminal knee extensions, step-ups) and **left hip stability** (clamshells, side-lying abduction, single-leg glute bridges with controlled range). Add upper body pull/push to keep total-body stimulus without overloading the hips.\n- **Cardio Finisher:** 15 min elliptical, moderate resistance, targeting 130\u2013138 HR \u2014 aerobic base work with low joint impact\n\n*Intensity target: RPE 6\u20137. No grinding. Quality reps, controlled movement.*\n\n> With 28 days to Hyrox Open June 7, you're in the build phase \u2014 but the left hip is still 7 weeks post-op. Protect the timeline. June 7 is the goal, July tennis is the bigger picture.\n\n---\n\n## \ud83e\udd57 Nutrition Focus Today\n\nYesterday was a significant underfuel \u2014 **661 calories short of goal** on a training day. Protein was solid (130g), but total energy was insufficient for the recovery and adaptation you need right now.\n\n**Today's priorities:**\n- **Hit 1,800 calories minimum** \u2014 non-negotiable on a training day, especially in a surgical recovery context. Under-eating slows tissue remodeling.\n- **Front-load carbs before training** \u2014 30\u201340g complex carbs pre-session to fuel performance and protect muscle.\n- **Post-workout window matters** \u2014 30\u201340g protein + 40\u201350g carbs within 45 minutes after training.\n- Watch the fat intake \u2014 22g yesterday is very low. Healthy fats support hormonal health and joint recovery. Add avocado, olive oil, or nuts somewhere today.\n\n---\n\n## \u26a0\ufe0f One Thing to Watch\n\n**Left hip response during strength work.** Seven weeks post-op is still early tissue healing territory. If you feel anything beyond mild muscle fatigue \u2014 pinching, clicking, or sharp sensation in the anterior hip \u2014 pull back immediately and note it for your PT. Progress is not worth setbacks at this stage of the timeline.\n\n---\n\n## \ud83d\udcac Coach's Note\n\nYou're doing the unglamorous work right now \u2014 bilateral hip surgeries, full-time job, grad school, single parenting \u2014 and you're still showing up consistently. That discipline is what's going to put you on the floor June 7. Eat your food today. You can't build what you don't fuel.\n\n---\n*28 days to Hyrox Open | 7 weeks post-op left hip | Let's go.*"
+    },
+    {
+      "role": "assistant",
+      "content": "I've reviewed your data and generated your briefing. What questions do you have?"
+    },
+    {
+      "role": "user",
+      "content": "can you see the strength block we came up with for todays workout, yesterday?"
+    },
+    {
+      "role": "assistant",
+      "content": "I don't have access to our previous conversations \u2014 each session starts fresh for me, so I can't see what we mapped out yesterday.\n\nCan you paste it here? Once I can see it, I'll help you refine it, layer it into today's structure, or make sure it's aligned with what the data is recommending this morning."
+    },
+    {
+      "role": "user",
+      "content": "**Tomorrow's Strength Session \u2014 Full Structure:**"
+    },
+    {
+      "role": "assistant",
+      "content": "Perfect, paste the full structure and I'll work with it. Let's make sure it lines up with today's readiness (77, RPE 6-7, left hip protection front of mind)."
+    }
+  ],
+  "nutrition": {
+    "date": "2026-05-09",
+    "calories": 1139,
+    "protein": 130.0,
+    "carbs": 99.0,
+    "fat": 22.0,
+    "calorie_goal": 1800,
+    "protein_goal": 144.0,
+    "calorie_pct": 64.0
+  }
+}

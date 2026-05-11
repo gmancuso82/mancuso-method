@@ -19,7 +19,7 @@ def load_previous_conversation():
                 data = json.load(f)
                 conversation = data.get('conversation', [])
                 # Extract just the user/coach messages, skip the initial data prompt
-                messages = [m for m in conversation if m['role'] in ['user', 'assistant']][2:]
+                messages = [m for m in conversation if m['role'] in ['user', 'assistant']][4:]
                 summary = []
                 for m in messages[:10]:  # last 10 exchanges
                     role = "You" if m['role'] == 'user' else "Coach"
@@ -51,6 +51,7 @@ client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_briefing(df_full, nutrition=None, df_today_activities=None):
     prev_conversation = load_previous_conversation()
+    print(f"DEBUG - Previous conversation loaded: {prev_conversation[:200] if prev_conversation else 'NONE'}")
     today = date.today()
     yesterday = today - timedelta(days=1)
 
@@ -118,6 +119,10 @@ Generate a morning briefing with:
 6. Coach's note (1 -2 sentences, honest and motivational)
 
 Be concise and direct. She is an experienced athlete - no fluff.
+
+YESTERDAY'S COACHING CONVERSATION:
+{prev_conversation if prev_conversation else 'No previous conversation logged.'}
+
 """
 
     message = client_ai.messages.create(
@@ -128,9 +133,13 @@ Be concise and direct. She is an experienced athlete - no fluff.
 
     return message.content[0].text
 
-def chat_with_coach(df_full, nutrition, df_today_activities):
+
+
+def chat_with_coach(df_full, nutrition=None, df_today_activities=None):
     today = date.today()
+    prev_conversation = load_previous_conversation()
     briefing_text = generate_briefing(df_full, nutrition, df_today_activities)
+    
 
     print(f"\n🌅 MORNING BRIEFING — {today.strftime('%A, %B %d')}")
     print("=" * 50)
@@ -154,9 +163,10 @@ def chat_with_coach(df_full, nutrition, df_today_activities):
         response = client_ai.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=500,
-            system="""You are Gina's personal AI coach. She is a 43-year-old Hyrox athlete 
-            recovering from two hip surgeries targeting Hyrox Open on June 7 2026. 
-            Be direct, specific, and reference her actual data.""",
+            system=f"""You are Gina's personal AI coach. She is a 43-year-old Hyrox athlete recovering from two hip surgeries targeting Hyrox Open on June 7 2026. Be direct, specific, and reference her actual data.
+
+            YESTERDAY'S CONVERSATION CONTEXT:
+            {prev_conversation if prev_conversation else 'No previous conversation logged.'}""",
             messages=conversation_history
         )
 
