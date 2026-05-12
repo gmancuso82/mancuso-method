@@ -51,7 +51,6 @@ client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def generate_briefing(df_full, nutrition=None, df_today_activities=None):
     prev_conversation = load_previous_conversation()
-    print(f"DEBUG - Previous conversation loaded: {prev_conversation[:200] if prev_conversation else 'NONE'}")
     today = date.today()
     yesterday = today - timedelta(days=1)
 
