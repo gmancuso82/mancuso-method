@@ -1,1 +1,8 @@
-garmin_tokens.pkl.env
+.env
+venv/
+garmin_tokens.pkl
+conversations/
+__pycache__/
+*.pkl
+*.json
+exploration.ipynb
