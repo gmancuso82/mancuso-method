@@ -116,14 +116,18 @@ def get_data():
 @app.route('/chat', methods=['POST'])
 def chat():
     from flask import request
+    import anthropic
     body = request.json
+    messages = body.get('messages', [])
+    system = body.get('system', '')
+    
     ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = ai.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=150,
-        messages=body['messages']
+        max_tokens=500,
+        system=system,
+        messages=messages
     )
     return jsonify({"reply": message.content[0].text})
-
 if __name__ == '__main__':
     app.run(port=5001, debug=False)
