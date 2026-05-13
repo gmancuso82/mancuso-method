@@ -38,9 +38,10 @@ def get_data():
     yesterday = today - timedelta(days=1)
     
     # Get all data
-    df_sleep = get_sleep(client)
-    df_oura = get_oura_readiness()
-    df_activities = get_activities(client)
+    two_weeks_ago = (date.today() - timedelta(days=14)).isoformat()
+    df_sleep = get_sleep(client, start_date=two_weeks_ago)
+    df_activities = get_activities(client, start_date=two_weeks_ago)
+    df_oura = get_oura_readiness(start_date=two_weeks_ago)
     nutrition = get_nutrition(client)
     
     # Get yesterday's sleep

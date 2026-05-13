@@ -22,20 +22,18 @@ def connect_garmin():
     try:
         if token_path.exists():
             with open(token_path, 'rb') as f:
-                tokens = pickle.load(f)
-            client.login(tokens)
+                saved = pickle.load(f)
+            client.login(str(token_path))
             print("Connected to Garmin (cached)!")
         else:
-            raise Exception("No token")
+            raise Exception("No token file")
     except:
         client.login()
-        # Save the session
         try:
-            with open(token_path, 'wb') as f:
-                pickle.dump(client.session_data, f)
-            print("Connected to Garmin!")
+            client.garth.dump(str(token_path))
         except:
-            print("Connected to Garmin!")
+            pickle.dump({}, open(token_path, 'wb'))
+        print("Connected to Garmin!")
     
     return client
 
@@ -51,9 +49,13 @@ def get_activities(client, start_date="2026-03-13"):
     df['date'] = pd.to_datetime(df['startTimeLocal']).dt.date
     return df
 
-def get_sleep(client, start_date="2026-03-13"):
+def get_sleep(client, start_date=None):
     from datetime import datetime
     import time
+    
+    if start_date is None:
+        start_date = (date.today() - timedelta(days=7)).isoformat()
+    
     start = date.fromisoformat(start_date)
     end = date.today()
     records = []
