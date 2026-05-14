@@ -49,6 +49,83 @@ load_dotenv()
 
 client_ai = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
+def generate_weekly_schedule(df_full, nutrition, df_today_activities):
+    from datetime import date, timedelta
+    
+    today = date.today()
+    yesterday = today - timedelta(days=1)
+    
+    # Day labels
+    days = []
+    for i in range(7):
+        # Start from most recent Monday
+        monday = today - timedelta(days=today.weekday())
+        d = monday + timedelta(days=i)
+        days.append(d)
+    
+    # Get last 7 days activities
+    recent = df_full[['date','activityName','duration_mins']].dropna(subset=['activityName'])
+    
+    # Nutrition flags
+    nutrition_flag = ""
+    if nutrition and nutrition.get('calories', 0) < nutrition.get('calorie_goal', 1800) * 0.85:
+        deficit = int(nutrition.get('calorie_goal', 1800) - nutrition.get('calories', 0))
+        nutrition_flag = f"⚠️ Nutrition flag: {deficit} cal deficit yesterday — priority to close today"
+    
+    # Build day-by-day
+    lines = []
+    for d in days:
+        d_str = d.isoformat()
+        dow = d.strftime('%a')
+        date_label = d.strftime('%m/%d')
+        
+        # Get actual activity
+        actual = df_full[df_full['date'] == d_str]
+        activity_name = actual['activityName'].values[0] if not actual.empty and not pd.isna(actual['activityName'].values[0]) else None
+        duration = actual['duration_mins'].values[0] if not actual.empty and not pd.isna(actual.get('duration_mins', pd.Series([None])).values[0]) else None
+        
+        # Determine planned session based on day
+        if dow == 'Mon':
+            planned = "Spin (AM) + Strength"
+        elif dow == 'Tue':
+            planned = "Strength + PT"
+        elif dow == 'Wed':
+            planned = "Spin (AM) + Elliptical"
+        elif dow == 'Thu':
+            planned = "Rest"
+        elif dow == 'Fri':
+            planned = "Strength + Cardio"
+        elif dow == 'Sat':
+            planned = "Hyrox-specific (Sled + Wall Balls + Row)"
+        else:
+            planned = "Long Endurance or Active Recovery"
+        
+        # Build line
+        if d == today:
+            if activity_name:
+                line = f"📍 TODAY  {dow} {date_label}  🔥 {activity_name} ({int(duration)} min) logged"
+            else:
+                line = f"📍 TODAY  {dow} {date_label}  → {planned}"
+        elif d == yesterday:
+            if activity_name:
+                line = f"⬅️ YEST   {dow} {date_label}  ✅ {activity_name} ({int(duration)} min)"
+            else:
+                line = f"⬅️ YEST   {dow} {date_label}  😴 Rest day (planned: {planned})"
+        elif d < today:
+            if activity_name:
+                line = f"         {dow} {date_label}  ✅ {activity_name} ({int(duration)} min)"
+            else:
+                line = f"         {dow} {date_label}  😴 Rest"
+        else:
+            line = f"         {dow} {date_label}  → {planned}"
+        
+        lines.append(line)
+    
+    schedule = "\n".join(lines)
+    if nutrition_flag:
+        schedule += f"\n\n{nutrition_flag}"
+    
+    return schedule
 def generate_briefing(df_full, nutrition=None, df_today_activities=None):
     prev_conversation = load_previous_conversation()
     today = date.today()
@@ -68,9 +145,15 @@ def generate_briefing(df_full, nutrition=None, df_today_activities=None):
 
     # Last 7 days
     last_7 = df_full[df_full['date'] >= (today - timedelta(days=7)).isoformat()]
+    weekly_schedule = generate_weekly_schedule(df_full, nutrition, df_today_activities)
+
+    print("DEBUG weekly_schedule:", weekly_schedule)
 
     briefing_prompt = f"""
 You are Gina Mancuso's personal AI recovery and performance coach. Generate her daily morning briefing.
+
+📅 WEEK AT A GLANCE — {today.strftime('%A, %B %d')} | {(date(2026,6,7)-today).days} days to Hyrox Open
+{weekly_schedule}
 
 ATHLETE PROFILE:
 - Right hip surgery: December 9, 2025 (~5 months ago)
@@ -121,8 +204,8 @@ Be concise and direct. She is an experienced athlete - no fluff.
 
 YESTERDAY'S COACHING CONVERSATION:
 {prev_conversation if prev_conversation else 'No previous conversation logged.'}
+    """
 
-"""
 
     message = client_ai.messages.create(
         model="claude-sonnet-4-6",
@@ -130,8 +213,9 @@ YESTERDAY'S COACHING CONVERSATION:
         messages=[{"role": "user", "content": briefing_prompt}]
     )
 
-    return message.content[0].text
-
+    briefing_text = message.content[0].text
+    header = f"📅 WEEK AT A GLANCE — {today.strftime('%A, %B %d')} | {(date(2026,6,7)-today).days} days to Hyrox Open\n{weekly_schedule}\n\n{'─'*50}\n\n"
+    return header + briefing_text
 
 
 def chat_with_coach(df_full, nutrition=None, df_today_activities=None):
